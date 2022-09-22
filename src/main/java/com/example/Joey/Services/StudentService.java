@@ -5,27 +5,35 @@ import com.example.Joey.attempt.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
     @Autowired
     private StudentRepo studentRepo;
 
-    public List<Student> getStudents(){
+    public List<Student> getAllStudents(){
         List <Student> students = new ArrayList<>();
-        return studentRepo.findAll().forEach(students::add);
+        studentRepo.findAll().
+                forEach(students::add);
+        return students;
     }
 
-    public String getStudent(Long id){
-        studentRepo.findById(id);
+    public Optional<Student> getStudent(Long id){
+        return studentRepo.findById(id);
     }
 
     public void addStudent(Student student){
-        Student student1 = new Student(4L, "Krazy Ken", "Medicine");
+        studentRepo.save(student);
     }
 
+    public void updateStudent(Student student) {
+        studentRepo.save(student);
+    }
+
+    public void deleteStudent(Long id){
+        studentRepo.deleteById(id);
+    }
 }
